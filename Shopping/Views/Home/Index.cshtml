@@ -1,0 +1,143 @@
+﻿@model IEnumerable<Shopping.Models.CollectionMaster>
+
+@{
+    ViewBag.Title = "Index";
+    //Layout = null;
+   int allservice = 0;
+}
+
+
+<script src="//code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="//cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
+
+<div class="row" style="margin-top:20px;">
+
+    <div class="col-sm-3" style="height:100px;background-color:#4287f5;margin:5px;"><span style="color:#ffffff;margin-top:30px;font-size:25px;">Total Products:- @ViewBag.TotalRecords</span></div>
+    <div class="col-sm-3" style="height:100px;background-color:#650b73;margin:5px;"><span style="color:#ffffff;margin-top:30px;font-size:25px;">Total Inactive:- @ViewBag.TotalInactive</span></div>
+    <div class="col-sm-3" style="height:100px;background-color:#cc2b3b;margin:5px;"><span style="color:#ffffff;margin-top:30px;font-size:25px;">Total Products:- @ViewBag.TotalRecords</span></div>
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>
+
+  <hr />
+
+<div class="container-fluid">
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    ServiceName
+                </th>
+                <th>
+                    ProductId
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Units
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MobileNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+      
+                <th>
+                  District
+                </th>
+                <th>
+                   State
+                </th>
+                <th>
+                    Service
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>Action</th>
+            </tr>
+        <thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.IsActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lng)
+        </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.CollectionCode)
+                </td>
+
+                @*<td>
+            @Html.DisplayFor(modelItem => item.IsUserAvailable)
+        </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.PriceRange)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PriceUnit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DistrictMaster.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateMaster.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Image)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete","Delete", new { id = item.id })
+                </td>
+            </tr>
+                allservice++;
+            }
+        </tbody>
+    </table>
+
+    <script type="text/javascript" charset="utf8" src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    <script>
+        $(function () {
+            $("#table_id").dataTable();
+        });
+    </script>
+
+</div>

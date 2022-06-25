@@ -1,0 +1,207 @@
+﻿@model Shopping.Models.CollectionMaster
+@{
+    ViewBag.Title = "GetAllSellerJquery";
+}
+
+<h2>Seller Mapping</h2>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+@using (Html.BeginForm("Create", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+ @Html.AntiForgeryToken()
+
+<div class="container-fluid">
+    <hr />
+    <div class="row">
+        <div class="col-sm-11">
+            <div class="alert alert-success">
+                <strong>Please Fill These Details on the Basic of Customer</strong>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label>Select User</label>
+                @Html.DropDownList("ClickName", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Mobile Number</label>
+                @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Email</label>
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Category</label>
+                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control", @value = "1" })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label>District For Service Available</label>
+                @Html.DropDownList("DistrictId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>State Fro Service Available</label>
+                @Html.DropDownList("Stateid", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Stateid, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Code For Your Product</label>
+                @Html.EditorFor(model => model.CollectionCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CollectionCode, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label>Description</label>
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="form-group">
+                <label>Price(INR)</label>
+                @Html.EditorFor(model => model.PriceRange, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceRange, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="form-group">
+                <label>Units</label>
+                @Html.EditorFor(model => model.PriceUnit, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceUnit, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Select an Image:</label>
+                <input type="file" name="ImageFile" required class="form-control">
+
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Is User Active</label>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Available</label>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.IsUserAvailable, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.IsUserAvailable, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label>Submit The Details</label>
+            <div class="form-group">
+
+                <input type="submit" value="Create" class="btn btn-success" style="width:50%;font-weight:400;"/>
+
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.Lat, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.Lng, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.HiddenFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+</div>
+}
+
+<div class="row" style="margin:50px;">
+    <div class="col-sm-11">
+        <table class="table table-hover">
+            <thead style="background-color:blueviolet;color:#ffffff;">
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    var x = document.getElementById("demo");
+    if (navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition(showPosition);
+    }
+    else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+    function showPosition(position) {
+        document.getElementById("Lat").value = position.coords.latitude;
+        document.getElementById("Lng").value = position.coords.longitude;
+    }
+</script>
+<script>
+
+    $("#ClickName").on('change', function () {
+        console.log('Testing console');
+
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "GetAllSellerJqueryPost?ids=" + $(this).val(),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (response) {
+    
+                    $('#MobileNumber').val(response.mydatacollection.MobileNumber);
+                    $('#Name').val(response.mydatacollection.UserName);
+                    $('#Email').val(response.mydatacollection.EmailId);
+                 }
+              }
+          }
+        );
+    });
+
+
+    /*/  get set data to table /*/
+
+
+    /*/  get set data to table /*/
+
+</script>
+
+
+

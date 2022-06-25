@@ -1,0 +1,477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EcommerceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Admin" Type="int" Nullable="false" />
+          <Property Name="IsServiceActive" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CollectionMaster">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="DistrictId" Type="int" />
+          <Property Name="Stateid" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Lat" Type="varchar(max)" />
+          <Property Name="Lng" Type="varchar(max)" />
+          <Property Name="CollectionCode" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsUserAvailable" Type="bit" />
+          <Property Name="PriceRange" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PriceUnit" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DistrictMaster">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="StateId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SellerMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MobileNumber" Type="varchar(max)" Nullable="false" />
+          <Property Name="EmailId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="StateMaster">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="Admin" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_CollectionMaster_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="CollectionMaster" Type="Self.CollectionMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CollectionMaster">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionMaster_DistrictMaster">
+          <End Role="DistrictMaster" Type="Self.DistrictMaster" Multiplicity="0..1" />
+          <End Role="CollectionMaster" Type="Self.CollectionMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DistrictMaster">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CollectionMaster">
+              <PropertyRef Name="DistrictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionMaster_StateMaster">
+          <End Role="StateMaster" Type="Self.StateMaster" Multiplicity="0..1" />
+          <End Role="CollectionMaster" Type="Self.CollectionMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateMaster">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CollectionMaster">
+              <PropertyRef Name="Stateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DistrictMaster_DistrictMaster">
+          <End Role="StateMaster" Type="Self.StateMaster" Multiplicity="1" />
+          <End Role="DistrictMaster" Type="Self.DistrictMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateMaster">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DistrictMaster">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_AddCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Admin" Type="int" Mode="In" />
+          <Parameter Name="IsServiceActive" Type="int" Mode="In" />
+          <Parameter Name="Result" Type="nvarchar" Mode="InOut" />
+        </Function>
+        <Function Name="sp_GetAllResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetCollectionForAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_insertCollectionByAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="varchar(max)" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="DistrictId" Type="int" Mode="In" />
+          <Parameter Name="Stateid" Type="int" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+          <Parameter Name="Lat" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Lng" Type="varchar(max)" Mode="In" />
+          <Parameter Name="CollectionCode" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="IsUserAvailable" Type="bit" Mode="In" />
+          <Parameter Name="PriceRange" Type="int" Mode="In" />
+          <Parameter Name="PriceUnit" Type="varchar(max)" Mode="In" />
+          <Parameter Name="MobileNumber" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Email" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Image" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_Lastfive" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="EcommerceModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CollectionMaster" EntityType="Self.CollectionMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DistrictMaster" EntityType="Self.DistrictMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SellerMaster" EntityType="Self.SellerMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StateMaster" EntityType="Self.StateMaster" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CollectionMaster_Category" Association="Self.FK_CollectionMaster_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CollectionMaster" EntitySet="CollectionMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionMaster_DistrictMaster" Association="Self.FK_CollectionMaster_DistrictMaster">
+            <End Role="DistrictMaster" EntitySet="DistrictMaster" />
+            <End Role="CollectionMaster" EntitySet="CollectionMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionMaster_StateMaster" Association="Self.FK_CollectionMaster_StateMaster">
+            <End Role="StateMaster" EntitySet="StateMaster" />
+            <End Role="CollectionMaster" EntitySet="CollectionMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DistrictMaster_DistrictMaster" Association="Self.FK_DistrictMaster_DistrictMaster">
+            <End Role="StateMaster" EntitySet="StateMaster" />
+            <End Role="DistrictMaster" EntitySet="DistrictMaster" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EcommerceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="EcommerceEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_AddCategory" ReturnType="Collection(String)">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Admin" Mode="In" Type="Int32" />
+            <Parameter Name="IsServiceActive" Mode="In" Type="Int32" />
+            <Parameter Name="Result" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetCollectionForAdmin" EntitySet="CollectionMasters" ReturnType="Collection(EcommerceModel.CollectionMaster)" />
+          <FunctionImport Name="sp_GetAllResult" EntitySet="CollectionMasters" ReturnType="Collection(EcommerceModel.CollectionMaster)" />
+          <FunctionImport Name="sp_insertCollectionByAdmin">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="DistrictId" Mode="In" Type="Int32" />
+            <Parameter Name="Stateid" Mode="In" Type="Int32" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+            <Parameter Name="Lat" Mode="In" Type="String" />
+            <Parameter Name="Lng" Mode="In" Type="String" />
+            <Parameter Name="CollectionCode" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="IsUserAvailable" Mode="In" Type="Boolean" />
+            <Parameter Name="PriceRange" Mode="In" Type="Int32" />
+            <Parameter Name="PriceUnit" Mode="In" Type="String" />
+            <Parameter Name="MobileNumber" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Image" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Categories" EntityType="EcommerceModel.Category" />
+          <EntitySet Name="CollectionMasters" EntityType="EcommerceModel.CollectionMaster" />
+          <EntitySet Name="DistrictMasters" EntityType="EcommerceModel.DistrictMaster" />
+          <EntitySet Name="StateMasters" EntityType="EcommerceModel.StateMaster" />
+          <AssociationSet Name="FK_CollectionMaster_Category" Association="EcommerceModel.FK_CollectionMaster_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="CollectionMaster" EntitySet="CollectionMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionMaster_DistrictMaster" Association="EcommerceModel.FK_CollectionMaster_DistrictMaster">
+            <End Role="DistrictMaster" EntitySet="DistrictMasters" />
+            <End Role="CollectionMaster" EntitySet="CollectionMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionMaster_StateMaster" Association="EcommerceModel.FK_CollectionMaster_StateMaster">
+            <End Role="StateMaster" EntitySet="StateMasters" />
+            <End Role="CollectionMaster" EntitySet="CollectionMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DistrictMaster_DistrictMaster" Association="EcommerceModel.FK_DistrictMaster_DistrictMaster">
+            <End Role="StateMaster" EntitySet="StateMasters" />
+            <End Role="DistrictMaster" EntitySet="DistrictMasters" />
+          </AssociationSet>
+          <EntitySet Name="SellerMasters" EntityType="EcommerceModel.SellerMaster" />
+          <FunctionImport Name="sp_Lastfive" EntitySet="CollectionMasters" ReturnType="Collection(EcommerceModel.CollectionMaster)" />
+        </EntityContainer>
+        <ComplexType Name="sp_GetCollectionForAdmin_Result">
+          <Property Type="String" Name="Name" Nullable="true" />
+          <Property Type="String" Name="Lat" Nullable="true" />
+          <Property Type="String" Name="Lng" Nullable="true" />
+          <Property Type="String" Name="CollectionCode" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="String" Name="PriceRange" Nullable="false" />
+          <Property Type="String" Name="PriceUnit" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MobileNumber" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="categoryName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="DistrictName" Nullable="true" />
+          <Property Type="String" Name="StateName" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_GetAllResult_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" />
+          <Property Type="Int32" Name="CategoryId" Nullable="true" />
+          <Property Type="Int32" Name="DistrictId" Nullable="true" />
+          <Property Type="Int32" Name="Stateid" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="String" Name="Lat" Nullable="true" />
+          <Property Type="String" Name="Lng" Nullable="true" />
+          <Property Type="String" Name="CollectionCode" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Boolean" Name="IsUserAvailable" Nullable="true" />
+          <Property Type="String" Name="PriceRange" Nullable="false" />
+          <Property Type="String" Name="PriceUnit" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MobileNumber" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Image" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Admin" Type="Int32" Nullable="false" />
+          <Property Name="IsServiceActive" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CollectionMasters" Relationship="EcommerceModel.FK_CollectionMaster_Category" FromRole="Category" ToRole="CollectionMaster" />
+        </EntityType>
+        <EntityType Name="CollectionMaster">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="DistrictId" Type="Int32" />
+          <Property Name="Stateid" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Lat" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Lng" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CollectionCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsUserAvailable" Type="Boolean" />
+          <Property Name="PriceRange" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PriceUnit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Category" Relationship="EcommerceModel.FK_CollectionMaster_Category" FromRole="CollectionMaster" ToRole="Category" />
+          <NavigationProperty Name="DistrictMaster" Relationship="EcommerceModel.FK_CollectionMaster_DistrictMaster" FromRole="CollectionMaster" ToRole="DistrictMaster" />
+          <NavigationProperty Name="StateMaster" Relationship="EcommerceModel.FK_CollectionMaster_StateMaster" FromRole="CollectionMaster" ToRole="StateMaster" />
+        </EntityType>
+        <EntityType Name="DistrictMaster">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CollectionMasters" Relationship="EcommerceModel.FK_CollectionMaster_DistrictMaster" FromRole="DistrictMaster" ToRole="CollectionMaster" />
+          <NavigationProperty Name="StateMaster" Relationship="EcommerceModel.FK_DistrictMaster_DistrictMaster" FromRole="DistrictMaster" ToRole="StateMaster" />
+        </EntityType>
+        <EntityType Name="StateMaster">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="Admin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CollectionMasters" Relationship="EcommerceModel.FK_CollectionMaster_StateMaster" FromRole="StateMaster" ToRole="CollectionMaster" />
+          <NavigationProperty Name="DistrictMasters" Relationship="EcommerceModel.FK_DistrictMaster_DistrictMaster" FromRole="StateMaster" ToRole="DistrictMaster" />
+        </EntityType>
+        <Association Name="FK_CollectionMaster_Category">
+          <End Type="EcommerceModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="EcommerceModel.CollectionMaster" Role="CollectionMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CollectionMaster">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionMaster_DistrictMaster">
+          <End Type="EcommerceModel.DistrictMaster" Role="DistrictMaster" Multiplicity="0..1" />
+          <End Type="EcommerceModel.CollectionMaster" Role="CollectionMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DistrictMaster">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CollectionMaster">
+              <PropertyRef Name="DistrictId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionMaster_StateMaster">
+          <End Type="EcommerceModel.StateMaster" Role="StateMaster" Multiplicity="0..1" />
+          <End Type="EcommerceModel.CollectionMaster" Role="CollectionMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateMaster">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CollectionMaster">
+              <PropertyRef Name="Stateid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DistrictMaster_DistrictMaster">
+          <End Type="EcommerceModel.StateMaster" Role="StateMaster" Multiplicity="1" />
+          <End Type="EcommerceModel.DistrictMaster" Role="DistrictMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StateMaster">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DistrictMaster">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SellerMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MobileNumber" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="sp_Lastfive_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" />
+          <Property Type="Int32" Name="CategoryId" Nullable="true" />
+          <Property Type="Int32" Name="DistrictId" Nullable="true" />
+          <Property Type="Int32" Name="Stateid" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+          <Property Type="String" Name="Lat" Nullable="true" />
+          <Property Type="String" Name="Lng" Nullable="true" />
+          <Property Type="String" Name="CollectionCode" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" />
+          <Property Type="Boolean" Name="IsUserAvailable" Nullable="true" />
+          <Property Type="String" Name="PriceRange" Nullable="false" />
+          <Property Type="String" Name="PriceUnit" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MobileNumber" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Image" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EcommerceModelStoreContainer" CdmEntityContainer="EcommerceEntities">
+          <FunctionImportMapping FunctionImportName="sp_AddCategory" FunctionName="EcommerceModel.Store.sp_AddCategory" />
+          <FunctionImportMapping FunctionImportName="sp_GetCollectionForAdmin" FunctionName="EcommerceModel.Store.sp_GetCollectionForAdmin">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetAllResult" FunctionName="EcommerceModel.Store.sp_GetAllResult">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_insertCollectionByAdmin" FunctionName="EcommerceModel.Store.sp_insertCollectionByAdmin" />
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="EcommerceModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="IsServiceActive" ColumnName="IsServiceActive" />
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollectionMasters">
+            <EntityTypeMapping TypeName="EcommerceModel.CollectionMaster">
+              <MappingFragment StoreEntitySet="CollectionMaster">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="PriceUnit" ColumnName="PriceUnit" />
+                <ScalarProperty Name="PriceRange" ColumnName="PriceRange" />
+                <ScalarProperty Name="IsUserAvailable" ColumnName="IsUserAvailable" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CollectionCode" ColumnName="CollectionCode" />
+                <ScalarProperty Name="Lng" ColumnName="Lng" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Stateid" ColumnName="Stateid" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DistrictMasters">
+            <EntityTypeMapping TypeName="EcommerceModel.DistrictMaster">
+              <MappingFragment StoreEntitySet="DistrictMaster">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StateMasters">
+            <EntityTypeMapping TypeName="EcommerceModel.StateMaster">
+              <MappingFragment StoreEntitySet="StateMaster">
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SellerMasters">
+            <EntityTypeMapping TypeName="EcommerceModel.SellerMaster">
+              <MappingFragment StoreEntitySet="SellerMaster">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Lastfive" FunctionName="EcommerceModel.Store.sp_Lastfive">
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

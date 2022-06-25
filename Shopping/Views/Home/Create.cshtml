@@ -1,0 +1,218 @@
+﻿@model Shopping.Models.CollectionMaster
+
+
+
+
+@using (Html.BeginForm("Create" ,"Home" , FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <hr />
+        <div class="row">
+            <div class="col-sm-4">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                       </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryId, "CategoryId",htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" , @value="1" })
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+               </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DistrictId,null, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.DropDownList("DistrictId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Stateid, "Stateid", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.DropDownList("Stateid", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Stateid, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <strong>Is User Active</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.IsActive)
+                        @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Lat, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Lat, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Lat, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Lng, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Lng, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Lng, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CollectionCode, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.CollectionCode, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CollectionCode, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <strong> Is user Available</strong>  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.IsUserAvailable)
+                        @Html.ValidationMessageFor(model => model.IsUserAvailable, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PriceRange, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.PriceRange, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PriceRange, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PriceUnit, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.PriceUnit, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PriceUnit, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                    @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="myfile">Select an Image:</label>
+                    <input type="file"  name="ImageFile" required>
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+  
+            if (navigator.geolocation)
+            {
+            navigator.geolocation.getCurrentPosition(showPosition);
+            }
+            else
+            {
+                 x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+   
+
+    function showPosition(position)
+    {
+        document.getElementById("Lat").value = position.coords.latitude;
+        document.getElementById("Lng").value = position.coords.longitude;
+       }
+</script>

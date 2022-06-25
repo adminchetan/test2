@@ -1,0 +1,180 @@
+﻿@model IEnumerable<Shopping.Models.CollectionMaster>
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+}
+
+<div class="w3-panel w3-green">
+    <h3>Success!</h3>
+    <p>You Can Find Most of the Service/Products Nearby Champawat, Uttarakhand.</p>
+</div>
+
+@{
+    ViewBag.Title = "GetAllResult";
+}
+<style>
+
+    /* Media Query for Laptops and Desktops */
+    @@media (min-width: 1025px) and (max-width: 1280px) {
+
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 20%;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 20px;
+            position: relative;
+            float: left;
+            height: 350px;
+        }
+    }
+
+
+    /* Media Query for low resolution  Tablets, Ipads */
+    @@media (min-width: 481px) and (max-width: 767px) {
+
+
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 20%;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 20px;
+            position: relative;
+            float: left;
+            height: 350px;
+        }
+    }
+
+
+
+    /* Media Query for Mobile Devices */
+    @@media (max-width: 480px) {
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 20%;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 20px;
+            position: relative;
+            float: left;
+            height: 350px;
+        }
+    }
+
+
+    /* Media Query for Tablets Ipads portrait mode */
+    @@media (min-width: 768px) and (max-width: 1024px) {
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 20%;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 20px;
+            position: relative;
+            float: left;
+            height: 350px;
+        }
+    }
+
+
+    /* Media Query for Large screens */
+    @@media (min-width: 1281px) {
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 20%;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 20px;
+            position: relative;
+            float: left;
+            height: 350px;
+        }
+    }
+
+
+    /* Media Query for low resolution  Tablets, Ipads */
+    @@media (min-width: 481px) and (max-width: 767px) {
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 20%;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 20px;
+            position: relative;
+            float: left;
+            height: 350px;
+        }
+    }
+
+    @@media (min-width: 768px) and (max-width: 1024px) {
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 20%;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 20px;
+            position: relative;
+            float: left;
+            height: 350px;
+        }
+    }
+
+    @@media (min-width: 1025px) and (max-width: 1280px) {
+        .card {
+            /* Add shadows to create the "card" effect */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 20%;
+            background-color: #ffffff;
+            color: #000000;
+            margin: 20px;
+            position: relative;
+            float: left;
+            height: 350px;
+        }
+    }
+
+
+    /* On mouse-over, add a deeper shadow */
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+    /* Add some padding inside the card container */
+    .cardcontainer {
+        padding: 2px 16px;
+    }
+</style>
+<hr />
+
+
+@foreach (var item in Model)
+{
+
+    <div class="card">
+        <img src="@Html.DisplayFor(modelItem => item.Image)" alt="Avatar" style="width:100%;height:200px;">
+        <div class="cardcontainer">
+            <h4><b>@Html.DisplayFor(modelItem => item.Name)</b></h4>
+            <p>@Html.DisplayFor(modelItem => item.Description)</p>
+            <button type="button" class="btn btn-danger">Contact- (@Html.DisplayFor(modelItem => item.MobileNumber))</button>
+        </div>
+    </div>
+
+}
